@@ -1,0 +1,146 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model 跨境支付请求 {
+  payment_request_id String @id @default(uuid())
+  tenant_id String 
+  request_no String 
+  client_enterprise_id String 
+  payer_account_id String 
+  payee_account_id String 
+  source_currency String 
+  target_currency String 
+  request_amount Decimal 
+  estimated_exchange_rate Decimal? 
+  payment_purpose String 
+  request_status String @default("待审核")
+  request_channel String 
+  request_operator_id String 
+  request_time DateTime 
+  last_update_time DateTime 
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+}
+
+model 风控规则 {
+  risk_rule_id String @id @default(uuid())
+  tenant_id String 
+  rule_code String 
+  rule_name String 
+  rule_type String 
+  rule_condition Json 
+  risk_level String 
+  action_type String 
+  is_active Boolean 
+  rule_description String? 
+  created_by String 
+  created_time DateTime 
+  updated_time DateTime 
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+}
+
+model 交易风控记录 {
+  risk_check_record_id String @id @default(uuid())
+  tenant_id String 
+  payment_request_id String 
+  check_sequence Int 
+  triggered_rule_id String? 
+  risk_score Decimal 
+  check_result String 
+  check_details Json? 
+  check_time DateTime 
+  check_system String 
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+}
+
+model 支付通道交易 {
+  channel_transaction_id String @id @default(uuid())
+  tenant_id String 
+  payment_request_id String 
+  channel_provider String 
+  channel_reference_no String 
+  actual_exchange_rate Decimal 
+  transaction_fee Decimal 
+  settlement_amount Decimal 
+  transaction_status String 
+  initiation_time DateTime 
+  completion_time DateTime? 
+  channel_response Json? 
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+}
+
+model 多币种账户余额 {
+  currency_account_id String @id @default(uuid())
+  tenant_id String 
+  enterprise_id String 
+  account_holder_type String 
+  currency_code String 
+  current_balance Decimal 
+  available_balance Decimal 
+  frozen_balance Decimal 
+  account_status String @default("正常")
+  last_reconciliation_time DateTime? 
+  created_time DateTime 
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+}
+
+model 清分结算记录 {
+  settlement_record_id String @id @default(uuid())
+  tenant_id String 
+  settlement_batch_no String 
+  settlement_cycle String 
+  settlement_date DateTime 
+  enterprise_id String 
+  settlement_currency String 
+  total_settlement_amount Decimal 
+  total_transaction_count Int 
+  settlement_status String @default("待处理")
+  settlement_file_path String? 
+  settlement_confirmation_time DateTime? 
+  created_time DateTime 
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+}
+
+model 资金链路审计表 {
+  fund_trace_id String @id @default(uuid())
+  tenant_id String 
+  payment_request_id String 
+  trace_chain Json 
+  source_fund_id String? 
+  final_recipient String 
+  intermediary_count Int 
+  compliance_check_result String 
+  audit_markers Json? 
+  trace_generation_time DateTime 
+  audit_report_id String? 
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+}
+
+model 租户工作空间配置 {
+  workspace_config_id String @id @default(uuid())
+  tenant_id String 
+  enterprise_name String 
+  business_scope String 
+  default_settlement_currency String 
+  risk_policy_level String @default("标准")
+  api_access_enabled Boolean 
+  max_concurrent_requests Int 
+  data_retention_period Int 
+  config_status String @default("生效中")
+  config_updated_time DateTime 
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+}
+
