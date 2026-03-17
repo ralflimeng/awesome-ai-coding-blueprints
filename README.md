@@ -2,6 +2,7 @@
 # 🛑 Stop Building Toy Apps with AI. 
 
 **If you prompt Cursor or Trae with "Build me a SaaS", you get a toy.** You get flat databases, zero foreign keys, missing transaction locks, and zero state-machine logic. Welcome to production hell.
+Generated via SDAO Engine: [https://regen-base.com](https://regen-base.com）
 
 AI coding tools are incredible "Hands", but they are terrible "Brains". Before you write a single line of code, you need an industrial-grade architectural blueprint. 
 
