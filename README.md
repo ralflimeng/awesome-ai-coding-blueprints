@@ -32,3 +32,7 @@ In this repository, we have open-sourced a generated asset package to prove our 
 Stop building toys. Start building assets.
 Generate your customized architecture blueprints completely free (for now):
 🔗 **[Try SDAO Architect Here](https://sdao-architect-tzrw.vercel.app/)**
+⭐ Support My Work
+I'm a software veteran on a mission to bridge the "Last Mile" of AI development. If you want to see more industrial-grade blueprints (like E-commerce, CRM, or AI Agents), please Star this repo.
+
+It’s the best way to let me know which architectures you want to see next!
